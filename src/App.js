@@ -8,7 +8,7 @@ function App() {
     const [products, setProducts] = useState([])
 
     useEffect(() => {
-        fetch("http://localhost:8000/products/")
+        fetch("https://shopping-k6qe.onrender.com/products/")
             .then((response) => response.json())
             .then((data) => {
                 // console.log(data)
