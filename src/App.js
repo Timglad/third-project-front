@@ -8,7 +8,7 @@ import Products from "./components/Products";
 
 function App() {
     const [products, setProducts] = useState([])
-    const [session, setSession] = useState('')
+    const [session, setSession] = useState(localStorage.getItem('sessionID'))
 
     useEffect(() => {
         // fetch("https://shopping-k6qe.onrender.com/products/")
@@ -30,13 +30,7 @@ function App() {
             .then(response => {
                 console.log(response.data);
                 setSession(response.data.session)
-                // if (response.status == 202){
-                //     console.log("ok")
-                // }else
-                // {
-                //     alert("something went wrong")
-
-                // }
+                localStorage.setItem('sessionID', response.data.session)
             })
             .catch(error => {
                 console.log(error);
