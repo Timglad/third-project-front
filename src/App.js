@@ -13,7 +13,7 @@ function App() {
     useEffect(() => {
         // fetch("https://shopping-k6qe.onrender.com/products/")
         fetch("http://localhost:8000/products/")
-        .then((response) => response.json())
+            .then((response) => response.json())
             .then((data) => {
                 // console.log(data)
                 setProducts(data)
@@ -21,18 +21,26 @@ function App() {
         console.log('use effect called!')
     }, [])
 
-// this function logs the user in
+    // this function logs the user in
     function login(user, pass) {
-        axios.post('http://localhost:8000/login/', {
+        let response = axios.post('http://localhost:8000/login/', {
             username: user,
             password: pass,
         })
             .then(response => {
                 console.log(response.data);
                 setSession(response.data.session)
+                // if (response.status == 202){
+                //     console.log("ok")
+                // }else
+                // {
+                //     alert("something went wrong")
+
+                // }
             })
             .catch(error => {
                 console.log(error);
+                alert("something went wrong")
             });
     }
 
@@ -46,7 +54,7 @@ function App() {
                     <Route path="/" element={
                         <Products products={products} />} />
                     <Route path="/cart" element={<Cart />} />
-                    <Route path="/login" element={<LoginPage login={login}/>} />
+                    <Route path="/login" element={<LoginPage login={login} />} />
                 </Routes>
 
 
