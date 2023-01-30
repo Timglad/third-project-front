@@ -20,7 +20,7 @@ function App() {
                 // console.log(response.headers)
             
         console.log('use effect called!')
-    }, [])
+    }, [session])
 
     // this function logs the user in
     function login(user, pass) {
@@ -43,18 +43,21 @@ function App() {
         <div className="App">
             <BrowserRouter>
 
-                <h1>My Cart Front end</h1>
-                <Header />
-                <Routes>
+                <h1>My Cart Application</h1>
                     {session ? <>
+                    <Header />
+                    <Routes>
                     <Route path="/" element={
                         <Products products={products} />} />
                     <Route path="/cart" element={<Cart />} />
+                    </Routes>
                     </> :
-                        <Route path="/login" element={<LoginPage login={login} />} />
+                    <Routes>
+                        <Route path="*" element={<LoginPage login={login} />} />
+                    </Routes>
+                    
                     }
                 }
-                </Routes>
 
 
             </BrowserRouter>
