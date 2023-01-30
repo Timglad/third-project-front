@@ -11,19 +11,20 @@ function App() {
     const [session, setSession] = useState(localStorage.getItem('sessionID'))
 
     useEffect(() => {
-        // fetch("https://shopping-k6qe.onrender.com/products/")
-        fetch("http://localhost:8000/products/")
-            .then((response) => response.json())
-            .then((data) => {
-                // console.log(data)
-                setProducts(data)
-            });
+        let headers = {
+            'Authorization': `Session ${session}`,
+          }
+        // fetch("https://shopping-k6qe.onrender.com/products")
+        axios.get("http://localhost:8000/products/", { headers:headers, withCredentials: true})
+            .then((response) => setProducts(response.data))
+                // console.log(response.headers)
+            
         console.log('use effect called!')
     }, [])
 
     // this function logs the user in
     function login(user, pass) {
-        let response = axios.post('http://localhost:8000/login/', {
+        axios.post('http://localhost:8000/login/', {
             username: user,
             password: pass,
         })
@@ -45,10 +46,14 @@ function App() {
                 <h1>My Cart Front end</h1>
                 <Header />
                 <Routes>
+                    {session ? <>
                     <Route path="/" element={
                         <Products products={products} />} />
                     <Route path="/cart" element={<Cart />} />
-                    <Route path="/login" element={<LoginPage login={login} />} />
+                    </> :
+                        <Route path="/login" element={<LoginPage login={login} />} />
+                    }
+                }
                 </Routes>
 
 
