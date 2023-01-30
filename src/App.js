@@ -38,6 +38,16 @@ function App() {
                 alert("something went wrong")
             });
     }
+    function logout() {
+        let headers = {
+            'Authorization': `Session ${session}`,
+          }
+        // fetch("https://shopping-k6qe.onrender.com/products")
+        axios.post("http://localhost:8000/logout/", { headers:headers, withCredentials: true})
+        localStorage.removeItem('sessionID')
+        setSession(null)
+        
+    }
 
     return (
         <div className="App">
@@ -45,11 +55,12 @@ function App() {
 
                 <h1>My Cart Application</h1>
                     {session ? <>
-                    <Header />
+                    <Header logout={logout} />
                     <Routes>
                     <Route path="/" element={
                         <Products products={products} />} />
                     <Route path="/cart" element={<Cart />} />
+                    <Route path="/logout" element={<Cart />} />
                     </Routes>
                     </> :
                     <Routes>
@@ -57,7 +68,7 @@ function App() {
                     </Routes>
                     
                     }
-                }
+                
 
 
             </BrowserRouter>
