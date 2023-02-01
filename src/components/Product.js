@@ -1,9 +1,11 @@
+import { Alert } from "react-bootstrap"
+
 function Product({product}) {
   return (
     <div>
-        <h1>{product.name}</h1>
-        <h3>{product.description}</h3>
-        <h3>{product.price}</h3>
+        <h3>{product.name}</h3>
+        <p>{product.description}</p>
+        <Alert key="info">{product.price}</Alert>
         <img src={'https://shopping-k6qe.onrender.com/static'+product.image} alt={product.name}/>
     </div>
   )

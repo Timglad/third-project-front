@@ -1,18 +1,24 @@
+import { Nav } from "react-bootstrap"
 import { Link } from "react-router-dom"
 
-function Header({logout}) {
+function Header({ logout }) {
   return (
+
     
-    <div>
+
+      <Nav variant="tabs" defaultActiveKey="/">
+        <Nav.Item>
+        <Nav.Link as={Link} to="/">Products</Nav.Link>
+        </Nav.Item>
+        <Nav.Item>
+        <Nav.Link as={Link} to="/cart">Cart</Nav.Link>
+        </Nav.Item>
         
-        <Link to="/">Products</Link>
-        <br/>
-        <Link to="/cart">Cart</Link>
-        <br/>        
-        <Link to="/" onClick={logout}>Logout</Link>
-        
-        
-        </div>
+        <Nav.Item>
+        <Nav.Link as={Link} onClick={logout} to="/">Logout</Nav.Link>
+        </Nav.Item>
+      </Nav>
+    
   )
 }
 

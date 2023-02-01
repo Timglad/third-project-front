@@ -1,3 +1,4 @@
+import { Col, Container, Row } from "react-bootstrap"
 import Product from "./Product"
 
 function Products({products}) {
@@ -5,8 +6,11 @@ function Products({products}) {
     <div>Products:
          {/* for product in products:
              return '<Product ' */}
-    {products.map(product => <Product key={product.id} product={product}/>)}
-
+    <Container fluid> 
+    <Row>
+    {products.map(product => <Col><Product key={product.id} product={product}/></Col>)}
+    </Row>
+    </Container>
 
     </div>
   )
