@@ -8,45 +8,54 @@ import Products from "./components/Products";
 
 function App() {
     const [products, setProducts] = useState([])
-    const [session, setSession] = useState(localStorage.getItem('sessionID'))
+    const [session, setSession] = useState(localStorage.getItem('session'))
+
+    axios.defaults.withCredentials = true;
+
 
     useEffect(() => {
-        let headers = {
-            'Authorization': `Session ${session}`,
-          }
         // fetch("https://shopping-k6qe.onrender.com/products")
-        axios.get("http://localhost:8000/products/", { headers:headers, withCredentials: true})
+        axios.get("http://localhost:8000/products/")
             .then((response) => setProducts(response.data))
-                // console.log(response.headers)
-            
         console.log('use effect called!')
-    }, [session])
+    }, [])
 
     // this function logs the user in
-    function login(user, pass) {
+    function login(user, pass) {    
         axios.post('http://localhost:8000/login/', {
             username: user,
             password: pass,
         })
             .then(response => {
                 console.log(response.data);
-                setSession(response.data.session)
-                localStorage.setItem('sessionID', response.data.session)
+                setSession('logged-in')
+                localStorage.setItem('session', 'logged-in')
+
             })
             .catch(error => {
                 console.log(error);
-                alert("something went wrong")
+                let status = error.message
+                switch (error.code) {
+                    case "ERR_BAD_REQUEST":
+                        status = "username or password not correct"
+                        break
+                    case "ERR_NETWORK":
+                        status = "could not reach the server. perhaps it is down?"
+                        break
+                    case "ERR_BAD_RESPONSE":
+                        status = "server is up. but had an error. you can try again in a fews seconds"
+                        break
+                    default:
+                        break
+                }
+                alert("something went wrong: " + status)
             });
     }
     function logout() {
-        let headers = {
-            'Authorization': `Session ${session}`,
-          }
+
         // fetch("https://shopping-k6qe.onrender.com/products")
-        axios.post("http://localhost:8000/logout/", { headers:headers, withCredentials: true})
-        localStorage.removeItem('sessionID')
+        axios.get("http://localhost:8000/logout/")
         setSession(null)
-        
     }
 
     return (
@@ -54,21 +63,21 @@ function App() {
             <BrowserRouter>
 
                 <h1>My Cart Application</h1>
-                    {session ? <>
+                {session ? <>
                     <Header logout={logout} />
                     <Routes>
-                    <Route path="/" element={
-                        <Products products={products} />} />
-                    <Route path="/cart" element={<Cart />} />
-                    <Route path="/logout" element={<Cart />} />
+                        <Route path="/" element={
+                            <Products products={products} />} />
+                        <Route path="/cart" element={<Cart />} />
+                        <Route path="/logout" element={<Cart />} />
                     </Routes>
-                    </> :
+                </> :
                     <Routes>
                         <Route path="*" element={<LoginPage login={login} />} />
                     </Routes>
-                    
-                    }
-                
+
+                }
+
 
 
             </BrowserRouter>
