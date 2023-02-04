@@ -56,6 +56,7 @@ function App() {
         // fetch("https://shopping-k6qe.onrender.com/products")
         axios.get("http://localhost:8000/logout/")
         setSession(null)
+        localStorage.removeItem('session')
     }
 
     return (
