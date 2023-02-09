@@ -6,7 +6,8 @@ function Product({product}) {
         <h3>{product.name}</h3>
         <p>{product.description}</p>
         <Alert key="info">{product.price}</Alert>
-        <img src={'https://shopping-k6qe.onrender.com/static'+product.image} alt={product.name}/>
+        {/* <img src={'https://shopping-k6qe.onrender.com/static'+product.image} alt={product.name}/> */}
+        <img src={'http://localhost:8000/static'+product.image} alt={product.name}/>
     </div>
   )
 }

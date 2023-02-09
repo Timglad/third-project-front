@@ -15,6 +15,9 @@ function Header({ logout }) {
         </Nav.Item>
         
         <Nav.Item>
+        <Nav.Link as={Link}  to="/login">Login</Nav.Link>
+        </Nav.Item>
+        <Nav.Item>
         <Nav.Link as={Link} onClick={logout} to="/">Logout</Nav.Link>
         </Nav.Item>
       </Nav>

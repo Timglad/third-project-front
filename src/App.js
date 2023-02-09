@@ -64,19 +64,15 @@ function App() {
             <BrowserRouter>
 
                 <h1>My Cart Application</h1>
-                {session ? <>
-                    <Header logout={logout} />
+q                    <Header logout={logout} />
                     <Routes>
                         <Route path="/" element={
                             <Products products={products} />} />
                         <Route path="/cart" element={<Cart />} />
                         <Route path="/logout" element={<Cart />} />
+                        <Route path="/login" element={<LoginPage login={login} />} />
                     </Routes>
-                </> :
-                    <Routes>
-                        <Route path="*" element={<LoginPage login={login} />} />
-                    </Routes>
-
+ 
                 }
 
 
