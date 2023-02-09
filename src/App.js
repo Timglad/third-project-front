@@ -28,8 +28,8 @@ function App() {
         })
             .then(response => {
                 console.log(response.data);
-                setSession('logged-in')
-                localStorage.setItem('session', 'logged-in')
+                setSession(response.data.user)
+                localStorage.setItem('session', response.data.user)
 
             })
             .catch(error => {
@@ -64,7 +64,8 @@ function App() {
             <BrowserRouter>
 
                 <h1>My Cart Application</h1>
-q                    <Header logout={logout} />
+                {session? <h2>Hello {session}</h2> : 'please login'}
+                    <Header logout={logout} />
                     <Routes>
                         <Route path="/" element={
                             <Products products={products} />} />
@@ -72,9 +73,6 @@ q                    <Header logout={logout} />
                         <Route path="/logout" element={<Cart />} />
                         <Route path="/login" element={<LoginPage login={login} />} />
                     </Routes>
- 
-                }
-
 
 
             </BrowserRouter>
