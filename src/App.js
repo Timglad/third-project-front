@@ -1,14 +1,14 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import Cart from "./components/Cart";
 import Header from "./components/Header";
+import Cartitems from "./components/Cartitems"
 import LoginPage from "./components/LoginPage";
 import Products from "./components/Products";
 
 function App() {
     const [products, setProducts] = useState([])
-    const [cart, setCart] = useState([])
+    const [cartitems, setCartitems] = useState([])
     const [session, setSession] = useState(localStorage.getItem('session'))
 
     axios.defaults.withCredentials = true;
@@ -17,7 +17,7 @@ function App() {
     useEffect(() => {
         // fetch("https://shopping-k6qe.onrender.com/products")
         axios.get("http://localhost:8000/cart/")
-            .then((response) => setCart(response.data))
+            .then((response) => setCartitems(response.data))
     }, [])
 
     useEffect(() => {
@@ -75,8 +75,8 @@ function App() {
                     <Header logout={logout} />
                     <Routes>
                         <Route path="/" element={<Products products={products} />} />
-                        <Route path="/cart"  element={<Cart cart={cart} />} />
-                        <Route path="/logout" element={<Cart />} />
+                        <Route path="/cart"  element={<Cartitems cartitems={cartitems} />} />
+                        <Route path="/logout" element={<Cartitems />} />
                         <Route path="/login" element={<LoginPage login={login} />} />
                     </Routes>
 

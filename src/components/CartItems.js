@@ -1,13 +1,15 @@
+import { Col, Container, Row } from "react-bootstrap"
+import Cartitem from "./Cartitem"
 
-
-function CartItems({cart}) {
+function Cartitems({cartitems}) {
   return (
     <div>
-        <h3>{cart.id}</h3>
-        <p>{cart.product}</p>
-        {/* <img src={'https://shopping-k6qe.onrender.com/static'+product.image} alt={product.name}/> */}
+    <Container fluid> 
+    <Row>
+    {cartitems.map(cartitem => <Col xs={12} md={6} lg={4}><Cartitem key={cartitem.id} cartitem={cartitem}/></Col>)}    </Row>
+    </Container>
     </div>
   )
 }
 
-export default CartItems
+export default Cartitems
